@@ -6,6 +6,7 @@ import re
 
 from common import *
 from utils import *
+from pollingthread import PollingThread
 import vars
  
 class LiveTV:
@@ -230,6 +231,9 @@ class LiveTV:
 
             # Add the cookies in the format "videourl|Cookie=[cookies]""
             video_url = "%s?%s|Cookie=%s" % (video_url, querystring, video_cookies_encoded)
+
+        polling_thread = PollingThread()
+        polling_thread.start()
 
         item = xbmcgui.ListItem(path=video_url)
         xbmcplugin.setResolvedUrl(int(sys.argv[1]), True, item)
